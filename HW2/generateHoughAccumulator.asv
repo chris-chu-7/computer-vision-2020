@@ -1,0 +1,28 @@
+function hough_img = generateHoughAccumulator(img, theta_num_bins, rho_num_bins)
+    imshow(img)
+    [rows, columns] = size(img);
+    theta_range = -90 : 90;
+    rho_range = -sqrt(rows ^ 2 + columns ^ 2) : sqrt(rows ^ 2 + columns ^ 2);
+    max_rho = floor(sqrt(rows ^ 2 + columns ^ 2));
+    max_theta = 90;
+    accum = zeros(length(rho_range), length(theta_range));    
+    for row = 1 : rows
+        for column = 1 : columns
+            for theta = theta_range
+                rho = round(((row - 1) * cosd(theta)) - ((column - 1) * sind(theta))); 
+                accum(rho + 1 + max_rho, theta + 1 + max_theta) = accum(rho + 1 + max_rho, theta + 1 + max_theta) + 1; 
+            end
+        end
+    end
+    disp(length(rho_range));
+    disp(length(theta_range));
+    
+    for rho = 1: rho_range:
+        for theta = 1 : theta_range:
+            x_coord = round(rho * s);
+            y_coord = ;
+            hough_img(x_coord, y_coord) = accum(rho, theta);
+end
+    
+
+    
